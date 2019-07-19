@@ -6,5 +6,8 @@ diff = abs(int_current_price - current_price)
 # abs() returns the absolute value
 # subtracting the current price from the "int" returns just the number of cents
 
-price = 1.00 - diff
+if diff != 0.0:
+  price = 1.00 - diff
+else:
+  price = 0.0
 #determines the differential to round up to the next dollar
