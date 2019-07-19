@@ -1,0 +1,10 @@
+current_price = total_so_far()
+int_current_price = int(current_price)
+# int() converts 133.66 to 133
+
+diff = abs(int_current_price - current_price)
+# abs() returns the absolute value
+# subtracting the current price from the "int" returns just the number of cents
+
+price = 1.00 - diff
+#determines the differential to round up to the next dollar
