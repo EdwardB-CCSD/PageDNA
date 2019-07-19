@@ -1,0 +1,22 @@
+orig_qty = qty
+
+if qty >= 10000:
+  overmod = 2
+elif qty >= 5000 and qty < 10000:
+  overmod = 4
+elif qty >= 3000 and qty < 5000:
+  overmod = 6
+elif qty >= 1000 and qty < 3000:
+  overmod = 8
+elif qty >= 500 and qty < 1000:
+  overmod = 9
+elif qty < 500:
+  overmod = 10
+
+#  if lookup('ink') == '4/0' or lookup('ink') == '4/4' or lookup('ink') == '4/1':
+# Overages for Color = Outside District, 10-2%
+if lookup('inside_ink') == '1/1' or lookup('inside_ink') == '1/0':
+# Overages for Black and White = Inside District
+  press_sheet_waste(0,overmod)  # press_sheet_waste(10,%) add % plus 10 sheets (check Put this calc first!)
+else:
+  press_sheet_waste(0,0)
