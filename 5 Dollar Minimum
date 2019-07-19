@@ -1,0 +1,4 @@
+current_price = total_so_far();
+differential = 5 - current_price;
+if current_price < 5:
+  price = differential; # Makes the price a minimum of $5
