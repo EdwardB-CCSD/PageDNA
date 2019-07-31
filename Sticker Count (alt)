@@ -1,0 +1,15 @@
+orig_qty = qty
+sticker_type = lookup('label_stock')
+
+if sticker_type == '_12_up_circles':
+  total_stickers = str(orig_qty * 12)
+elif sticker_type == '_24_up_circles':
+  total_stickers = str(orig_qty * 24)
+elif sticker_type == '_10_up_rectangles':
+  total_stickers = str(orig_qty * 10)
+else:
+  total_stickers = str(orig_qty)  # 'full_sheet':
+
+# set_message('some message')  # Message for quote screen 
+# set_message('Stickers: ' + total_stickers)
+set_message(total_stickers)
