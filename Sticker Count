@@ -1,0 +1,11 @@
+orig_qty = qty
+sticker_type = lookup('labels')
+
+if sticker_type == '_12-up':
+  total_stickers = str(orig_qty * 12)
+else:
+  total_stickers = str(orig_qty * 24)
+
+# set_message('some message')  # Message for quote screen 
+# set_message('Stickers: ' + total_stickers)
+set_message(total_stickers)
