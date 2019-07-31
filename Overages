@@ -1,5 +1,7 @@
 orig_qty = qty
+# 'qty' should include originals multiplier for press sheets
 
+# counted in Press Sheets
 if qty >= 10000:
   overmod = 2
 elif qty >= 5000 and qty < 10000:
@@ -13,10 +15,14 @@ elif qty >= 500 and qty < 1000:
 elif qty < 500:
   overmod = 10
 
+## Un-Comment coresponding 'if'
+### Out of District => Overages for Color, 10-2%
 #  if lookup('ink') == '4/0' or lookup('ink') == '4/4' or lookup('ink') == '4/1':
-# Overages for Color = Outside District, 10-2%
-if lookup('inside_ink') == '1/1' or lookup('inside_ink') == '1/0':
-# Overages for Black and White = Inside District
+
+### In District and PTCO => Overages for Black and White, 10-2%
+#  if lookup('inside_ink') == '1/1' or lookup('inside_ink') == '1/0':
+#  if lookup('ink') == '1/1' or lookup('ink') == '1/0':
+
   press_sheet_waste(0,overmod)  # press_sheet_waste(10,%) add % plus 10 sheets (check Put this calc first!)
 else:
   press_sheet_waste(0,0)
