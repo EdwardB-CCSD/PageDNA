@@ -1,0 +1,65 @@
+# Coil mm : price
+prices = {
+    6:     0.04,
+    7:     0.05,
+    8:     0.06,
+    9:     0.07,
+    10:    0.08,
+    11:    0.09,
+    12:    0.1,
+    13:    0.11,
+    14:    0.12,
+    15:    0.13,
+    16:    0.15,
+    18:    0.17,
+    20:    0.19,
+    22:    0.21,
+    25:    0.24,
+    28:    0.27
+    }
+
+# Min Sheets : Coil mm
+sizes = {
+    2:      6,
+    34:     7,
+    46:     8,
+    59:     9,
+    69:     10,
+    79:     11,
+    89:     12,
+    99:     13,
+    109:    14,
+    119:    15,
+    129:    16,
+    139:    18,
+    149:    20,
+    179:    22,
+    199:    25,
+    229:    28
+    }
+
+num_pages =     lookup('how_many_pdf_minus_410522')
+ink =           lookup('inside_ink')
+book =          int(num_pages)
+p =             0
+s =             0
+binding =       lookup('binding')
+
+if ink == '1/1' or ink == '4/4':
+    book = book/2
+
+for k in sorted(sizes.keys()):
+    if k <= book:
+        s = sizes[k]
+        p = prices[s]
+
+if binding == 'coil':
+    if book > 258:
+        error = str(book)+' sheets used. Cannot use coil binding with greater than 258 sheets. Please adjust your options to include less than 235 sheets.'
+
+    sub = p*qty
+    price = sub
+
+    set_item_form_attr('item_billcode7', str(sub), override=True)
+
+    desc = 'Coil binding, '+str(book)+' sheets used, '+str(s)+'mm coil at $'+str(p)+' per book. '+str(qty)+' books total.'
