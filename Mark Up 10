@@ -1,0 +1,4 @@
+current_price = total_so_far()
+
+#Calculate 10% Markup
+price = current_price * 0.900
