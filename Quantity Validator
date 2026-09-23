@@ -1,0 +1,25 @@
+# set_message('some message')  # Message for quote screen
+# error = 'Some Message'
+sheet_size = lookup('size')
+order_qty = int(qty)
+error_string = ''
+
+# Check each size for quantity, Error out if not a round number up
+
+if sheet_size == '_4p25x5p5' or sheet_size == '_5p5x4p25':
+  no_up = order_qty / 4.0
+  if int(no_up) != no_up:
+    error_string = 'Quantity must be divisible by 4!'
+
+elif sheet_size == '_8p5x5p5' or sheet_size == '_5p5x8p5':
+  no_up = order_qty / 2.0
+  if int(no_up) != no_up:
+    error_string = 'Quantity must be divisible by 2!'
+else:
+  error_string = ''
+
+# if error_string != '':
+#  error = error_string
+# else:
+#  error = ''
+error = error_string
