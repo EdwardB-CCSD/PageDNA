@@ -1,0 +1,23 @@
+num_pages =     lookup('how_many_pur_product3284')
+ink =           lookup('ink')
+book =          int(num_pages)
+binding =       lookup('binding')
+
+if ink == '1/1' or ink == '4/4':
+	book = book/2
+
+if binding == 'perfect':
+	if book >= 8 and book <= 125:
+		price = 1.00 * qty
+	elif book >= 126 and book <= 250:
+		price = 1.25 * qty
+	elif book >= 251 and book <= 348:
+		price = 1.50 * qty
+	else:
+		error = 'Must be more than 7 inside sheets and less than 349 to Tape Bind'
+#    sub = book*qty
+#    price = (sub / 10000.00) * 30.00
+
+#    set_item_form_attr('item_billcode7', str(sub), override=True)
+
+	desc = 'Tape Binding, '+str(book)+' sheets used, per book. '+str(qty)+' books total.'
