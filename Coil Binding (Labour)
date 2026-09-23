@@ -1,0 +1,16 @@
+num_pages =     lookup('how_many_pur_product3284')
+ink =           lookup('ink')
+book =          int(num_pages)
+binding =       lookup('binding')
+
+if ink == '1/1' or ink == '4/4':
+    book = book/2
+
+if binding == 'coil':
+
+    sub = book*qty
+    price = (sub / 10000.00) * 30.00
+
+#    set_item_form_attr('item_billcode7', str(sub), override=True)
+
+    desc = 'Coil punching, '+str(book)+' sheets used, per book. '+str(qty)+' books total.'
