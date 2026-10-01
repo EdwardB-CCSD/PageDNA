@@ -1,0 +1,30 @@
+#MICR Code:
+def glyph(x):
+    if x == 'A' or x == 'a':
+        x = GLYPH('A', F4)
+    elif x == 'T' or x == 't':
+        x = GLYPH('T', F4)
+    elif x == '$':
+        x = GLYPH('D', F4)   # unconfirmed - see note below
+    elif x == '-':
+        x = GLYPH('D', F4)   # unconfirmed - see note below
+    elif x == 'X' or x == 'x' or x == '':
+        x = ' '
+    return x
+
+# Note: Based on the item's thumbnail and large preview, this deposit slip only uses the On-Us (A) and Transit (T) symbols.
+# The font also has D, O, Z glyphs that are presumably the Dash and Amount symbols, but these are not used in the thumbnail or large preview.
+# For NameBlock17, only the A/T characters matter.
+
+aux_chars   = ('A','0','0','0','0','A')
+route_chars = ('T','0','0','0','0','0','0','0','0','0','T')
+accno_chars = ('0','0','0','0','0','0','0','0','0','A')
+
+auxlist   = list(map(glyph, aux_chars))
+routelist = list(map(glyph, route_chars))
+accnolist = list(map(glyph, accno_chars))
+del glyph
+#End MICR Code
+
+NameBlock17 = ANGLE(DWIMBLOCK([[F4, LEFT] + auxlist + ['  '] + routelist + ['  '] + accnolist,
+              ], (234, 9), (TOP, RIGHT)), 90, (RIGHT, BOTTOM))
