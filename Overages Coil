@@ -1,0 +1,41 @@
+# orig_qty = qty
+int_press_sheets = press_sheets() * qty  # Returns number of press sheets required (component=2 optional)
+
+# 'qty' should include originals multiplier for press sheets
+
+# counted in Press Sheets
+if int_press_sheets >= 10000:
+  overmod = 2
+elif int_press_sheets >= 5000 and qty < 10000:
+  overmod = 4
+elif int_press_sheets >= 3000 and qty < 5000:
+  overmod = 6
+elif int_press_sheets >= 1000 and qty < 3000:
+  overmod = 8
+elif int_press_sheets >= 500 and qty < 1000:
+  overmod = 9
+elif int_press_sheets < 500:
+  overmod = 10
+
+if qty = 5:
+  overmod = 20
+elif qty = 4:
+  overmod = 40
+elif qty = 3:
+  overmod = 60
+elif qty = 2:
+  overmod = 80
+elif qty = 1:
+  overmod = 100
+
+## Un-Comment coresponding 'if'
+### Out of District => Overages for Color, 10-2%
+#  if lookup('ink') == '4/0' or lookup('ink') == '4/4' or lookup('ink') == '4/1':
+
+### In District and PTCO => Overages for Black and White, 10-2%
+if lookup('inside_ink') == '1/1' or lookup('inside_ink') == '1/0':
+#  if lookup('ink') == '1/1' or lookup('ink') == '1/0':
+
+  press_sheet_waste(1,overmod)  # press_sheet_waste(10,%) add % plus 10 sheets (check Put this calc first!)
+else:
+  press_sheet_waste(1,0)
