@@ -1,0 +1,48 @@
+# Base padding price per notepad:
+paper_price = lookup('*paper_price')
+press_sheets = press_sheets()
+pad_sheet_count =  lookup('sheets_per_pad')
+if press_sheets > 0.00 and paper_price > 0.00 and pad_sheet_count == '_50':
+  paper = paper_price/press_sheets
+#ps_per_qty = press_sheets/50
+  ps_remain = press_sheets*49
+elif press_sheets > 0.00 and paper_price > 0.00 and pad_sheet_count == '_100':
+  paper = paper_price/press_sheets
+#ps_per_qty = press_sheets/100
+  ps_remain = press_sheets*99
+
+
+### DO NOT EDIT BELOW THIS LINE ###
+
+  np =     lookup('sheets_per_pad')
+  n_p =     int(np[1:])
+  ps = press_sheets
+  p_s = int(ps)
+  num_pages = (n_p*p_s)-p_s
+  ink =           lookup('ink')
+  binding =       lookup('binding')
+  book = num_pages
+
+  if ink == '1/0':
+      click = 0.00425
+  elif ink == '1/1':
+      click = 0.0085
+  elif ink == '4/0':
+      click = 0.047
+  elif ink == '4/4':
+      click = 0.094
+
+
+  sheets_used = ps_remain
+  click_charges = click*sheets_used
+  paper_charges = paper*sheets_used
+
+
+  price = paper_charges+click_charges
+
+  desc = 'Padded binding, '+str(sheets_used)+' additional sheets used, $'+str(click_charges)+' additional click charges, and $'+str(paper_charges)+' additional paper charges.'
+else:
+  #error = 'Paper Selections are not valid'
+  #desc = 'Padded binding, '+str(sheets_used)+' additional sheets used, $'+str(click_charges)+' additional click charges, and $'+str(paper_charges)+' additional paper charges.'
+  set_message('Paper Selections are not valid')
+  #error = 'See Messages'
