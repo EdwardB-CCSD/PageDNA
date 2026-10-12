@@ -24,13 +24,15 @@ elif press_sheets > 0.00 and paper_price > 0.00 and pad_sheet_count == '_100':
   book = num_pages
 
   if ink == '1/0':
-      click = 0.00425
+      click = 0.004
   elif ink == '1/1':
-      click = 0.0085
+      click = 0.008
   elif ink == '4/0':
-      click = 0.047
+      click = 0.05
   elif ink == '4/4':
-      click = 0.094
+      click = 0.010
+  elif ink == '4/1':
+      click = 0.0655
 
 
   sheets_used = ps_remain
