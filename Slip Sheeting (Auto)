@@ -1,0 +1,64 @@
+int_quantity = qty
+int_pagecount = int(lookup('how_many_pur_project3274'))
+int_sheetcount_duplex = int_pagecount / 2
+
+finishing_type = lookup('stapling') #  lookup('stapling')
+# 'none' or 'staple_one_left' or 'staple_two_left' or 'staple_two_right'
+is_collated = lookup('collated') # lookup('collated')
+# 'yes' or 'no'
+is_inked = lookup('ink')
+# '4/0' or '4/4'
+# Current cost of colored paper is $7.40/M, 10.20.2026
+slip_cost = .008
+
+# enable if no finishing on multiple sheets
+if is_inked == '4/0' and finishing_type == 'none' and int_pagecount > 2 and is_collated == 'yes':
+  set_message('Slip Sheeting Enabled')  # Message for quote screen
+  price = slip_cost * (int_quantity - 1)
+  desc = 'Number of Slip Sheets'+str((int_quantity - 1))+', at $'+str(slip_cost)+'each, costing: $'+str(price)
+
+elif is_inked == '1/0' and finishing_type == 'none' and int_pagecount > 2 and is_collated == 'yes':
+  set_message('Slip Sheeting Enabled')  # Message for quote screen
+  price = slip_cost * (int_quantity - 1)
+  desc = 'Number of Slip Sheets'+str((int_quantity - 1))+', at $'+str(slip_cost)+'each, costing: $'+str(price)
+
+elif is_inked == '4/4' and finishing_type == 'none' and int_pagecount >= 3 and is_collated == 'yes':
+  set_message('Slip Sheeting Enabled')  # Message for quote screen
+  price = slip_cost * (int_quantity - 1)
+  desc = 'Number of Slip Sheets'+str((int_quantity - 1))+', at $'+str(slip_cost)+'each, costing: $'+str(price)
+
+elif is_inked == '1/1' and finishing_type == 'none' and int_pagecount >= 3 and is_collated == 'yes':
+  set_message('Slip Sheeting Enabled')  # Message for quote screen
+  price = slip_cost * (int_quantity - 1)
+  desc = 'Number of Slip Sheets'+str((int_quantity - 1))+', at $'+str(slip_cost)+'each, costing: $'+str(price)
+
+# enable if uncollated multiple sheets
+elif is_inked == '4/0' and is_collated == 'no' and int_pagecount > 2:
+  set_message('Slip Sheeting Enabled')  # Message for quote screen
+  price = slip_cost * (int_pagecount - 1)
+  desc = 'Number of Slip Sheets'+str((int_pagecount - 1))+', at $'+str(slip_cost)+'each, costing: $'+str(price)
+
+elif is_inked == '1/0' and is_collated == 'no' and int_pagecount > 2:
+  set_message('Slip Sheeting Enabled')  # Message for quote screen
+  price = slip_cost * (int_pagecount - 1)
+  desc = 'Number of Slip Sheets'+str((int_pagecount - 1))+', at $'+str(slip_cost)+'each, costing: $'+str(price)
+
+elif is_inked == '4/4' and is_collated == 'no' and int_pagecount >= 3:
+  set_message('Slip Sheeting Enabled')  # Message for quote screen
+  price = slip_cost * (int_sheetcount_duplex - 1)
+  desc = 'Number of Slip Sheets'+str((int_sheetcount_duplex - 1))+', at $'+str(slip_cost)+'each, costing: $'+str(price)
+
+elif is_inked == '4/1' and is_collated == 'no' and int_pagecount >= 3:
+  set_message('Slip Sheeting Enabled')  # Message for quote screen
+  price = slip_cost * (int_pagecount - 1)
+  desc = 'Number of Slip Sheets'+str((int_sheetcount_duplex - 1))+', at $'+str(slip_cost)+'each, costing: $'+str(price)
+
+elif is_inked == '1/1' and is_collated == 'no' and int_pagecount >= 3:
+  set_message('Slip Sheeting Enabled')  # Message for quote screen
+  price = slip_cost * (int_pagecount - 1)
+  desc = 'Number of Slip Sheets'+str((int_sheetcount_duplex - 1))+', at $'+str(slip_cost)+'each, costing: $'+str(price)
+
+else:
+  price = 0.00
+  set_message('No Slip Sheeting')
+  desc = 'Number of Slip Sheets is ZERO, at $'+str(slip_cost)+'each, costing: $'+str(price)
