@@ -1,0 +1,13 @@
+int_page_count = int(lookup('how_many_pur_project3274'))
+inking = lookup('ink')
+
+if inking == '4/0':
+  sheet_overages = int_page_count
+
+elif inking == '4/4':
+  sheet_overages = int_page_count / 2.0
+
+else:
+  sheet_overages = int_page_count
+
+press_sheet_waste(sheet_overages,.1)  # add 1 set plus .10% (check Put this calc first!)
