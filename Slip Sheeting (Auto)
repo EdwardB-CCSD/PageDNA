@@ -12,12 +12,12 @@ is_inked = lookup('ink')
 slip_cost = .008
 
 # enable if no finishing on multiple sheets
-if is_inked == '4/0' and finishing_type == 'none' and int_pagecount > 2 and is_collated == 'yes':
+if is_inked == '4/0' and finishing_type == 'none' and int_pagecount >= 2 and is_collated == 'yes':
   set_message('Slip Sheeting Enabled')  # Message for quote screen
   price = slip_cost * (int_quantity - 1)
   desc = 'Number of Slip Sheets'+str((int_quantity - 1))+', at $'+str(slip_cost)+'each, costing: $'+str(price)
 
-elif is_inked == '1/0' and finishing_type == 'none' and int_pagecount > 2 and is_collated == 'yes':
+elif is_inked == '1/0' and finishing_type == 'none' and int_pagecount >= 2 and is_collated == 'yes':
   set_message('Slip Sheeting Enabled')  # Message for quote screen
   price = slip_cost * (int_quantity - 1)
   desc = 'Number of Slip Sheets'+str((int_quantity - 1))+', at $'+str(slip_cost)+'each, costing: $'+str(price)
