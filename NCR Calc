@@ -4,24 +4,24 @@ if paper == '2-PART CARBONLESS':
   setup_sheets = 3
   overmod = 101
 #  price = (paper_price + bw_ink_price) * paper_press_sheets
-  desc = str(setup_sheets)+' Setup Sheets, and Overages of'+str(overmod)+'% for 2-Part'
+  desc = str(setup_sheets)+' Setup Sheets, and Overages of '+str(overmod)+'% for 2-Part'
 
 elif paper == '3-PART CARBONLESS':
   setup_sheets = 5
   overmod = 201
 #  price = (paper_price + bw_ink_price) * paper_press_sheets
-  desc = str(setup_sheets)+' Setup Sheets, and Overages of'+str(overmod)+'% for 3-Part'
+  desc = str(setup_sheets)+' Setup Sheets, and Overages of '+str(overmod)+'% for 3-Part'
 
 elif paper == '4-PART CARBONLESS':
   setup_sheets = 7
   overmod = 301
 #  price = (paper_price + bw_ink_price) * paper_press_sheets
-  desc = str(setup_sheets)+' Setup Sheets, and Overages of'+str(overmod)+'% for 3-Part'
+  desc = str(setup_sheets)+' Setup Sheets, and Overages of '+str(overmod)+'% for 4-Part'
 
 elif paper == '5-PART CARBONLESS':
   setup_sheets = 9
   overmod = 401
 #  price = (paper_price + bw_ink_price) * paper_press_sheets
-  desc = str(setup_sheets)+' Setup Sheets, and Overages of'+str(overmod)+'% for 3-Part'
+  desc = str(setup_sheets)+' Setup Sheets, and Overages of '+str(overmod)+'% for 5-Part'
 
 press_sheet_waste(setup_sheets,overmod)  # add 2% plus 10 sheets (check Put this calc first!)
