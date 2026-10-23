@@ -1,0 +1,28 @@
+bw_ink_price = 0.004
+color_ink_price = 0.05
+
+## DO NOT EDIT ##
+quantity = qty
+paper = lookup('paper')
+paper_price_t = lookup('*paper_price') # calculated paper price (guts if a book)
+paper_press_sheets = press_sheets()  # Returns number of press sheets required (component=2 optional)
+paper_price = paper_price_t / paper_press_sheets
+source_pages = lookup('how_many_pur_project3274')
+plexity = lookup('ink') # '1/0'
+
+
+if paper == '2-PART CARBONLESS' and source_pages == 1 and plexity == '1/0':
+  price = (paper_price + bw_ink_price) * paper_press_sheets
+  desc = str(paper_press_sheets)+', Paper Price: '+str(paper_price)+', Ink Price: '+str(bw_ink_price)+', Total Added Cost: '+str(price)
+
+elif paper == '2-PART CARBONLESS' and source_pages == 1 and plexity == '4/0':
+  price = (paper_price + color_ink_price) * paper_press_sheets
+  desc = str(paper_press_sheets)+', Paper Price: '+str(paper_price)+', Ink Price: '+str(color_ink_price)+', Total Added Cost: $'+str(price)
+
+elif paper == '3-PART CARBONLESS' and source_pages == 1 and plexity == '1/0':
+  price = (paper_price + bw_ink_price) * paper_press_sheets * 2
+  desc = str(paper_press_sheets)+', Paper Price: '+str(paper_price)+', Ink Price: '+str(bw_ink_price)+', Total Added Cost: $'+str(price)
+
+elif paper == '3-PART CARBONLESS' and source_pages == 1 and plexity == '4/0':
+  price = (paper_price + color_ink_price) * paper_press_sheets * 2
+  desc = str(paper_press_sheets)+', Paper Price: '+str(paper_price)+', Ink Price: '+str(color_ink_price)+', Total Added Cost: $'+str(price)
