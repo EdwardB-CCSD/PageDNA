@@ -1,0 +1,16 @@
+pad_sheet_count =  lookup('sheets_per_pad')
+
+if pad_sheet_count == '_50':
+  setup_sheets = 1
+  overmod = 4910
+#  price = (paper_price + bw_ink_price) * paper_press_sheets
+  desc = str(setup_sheets)+' Setup Sheets, and Overages of '+str(overmod)+'% for 50 sheet pads'
+
+elif pad_sheet_count == '_100':
+  setup_sheets = 2
+  overmod = 9910
+#  price = (paper_price + bw_ink_price) * paper_press_sheets
+  desc = str(setup_sheets)+' Setup Sheets, and Overages of '+str(overmod)+'% for 100 sheet pads'
+
+
+press_sheet_waste(setup_sheets,overmod)  # add 2% plus 10 sheets (check Put this calc first!)
