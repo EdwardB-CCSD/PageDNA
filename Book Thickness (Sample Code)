@@ -1,0 +1,67 @@
+This is an auto-calculation that will use the thickness of the booklet to determine which size coil will be needed based on the paper thickness. The user will not need to see this selection since they want coil binding but will not know the thickness to choose.
+
+This Python code gets the paper thickness from the paper list’s caliper values times the number of original sheets to determine what coil binding size to use.
+
+Code for Custom Calculation:
+
+back_cover_caliper_value = env['snap']['paper']['back_cover']['caliper']
+front_cover_paper_caliper_value = env['snap']['paper']['front_cover_paper']['caliper']
+inside_paper_caliper_value = env['snap']['paper']['inside_paper']['caliper']
+inside_paper_press_sheets_value = env['snap']['layout']['inside_paper']['press_sheets']
+back_cover_press_sheets_value = env['snap']['layout']['back_cover']['press_sheets']
+front_cover_paper_press_sheets_value = env['snap']['layout']['front_cover_paper']['press_sheets']
+num_orig = float(lookup('num_originals'))
+paper_thickness = (num_orig * inside_paper_caliper_value) + front_cover_paper_caliper_value + back_cover_caliper_value
+conflicts = {}
+#------------------ ink offset press --------------------
+if inside_paper_press_sheets_value >= 1000:
+  op1 = 'inside_inkfset_press2447 == no allow yes'
+  op2 = 'front_covefset_press2585 == no allow yes'
+  op3 = 'back_coverfset_press2433 == no allow yes'
+  conflicts['inside_inkfset_press2447'] = [op1]
+  conflicts['front_covefset_press2585'] = [op2]
+  conflicts['back_coverfset_press2433'] = [op3]
+elif inside_paper_press_sheets_value < 1000:
+  conflicts['inside_inkfset_press2447'] = ['inside_inkfset_press2447 == no deny']
+  conflicts['front_covefset_press2585'] = ['front_covefset_press2585 == no deny']
+  conflicts['back_coverfset_press2433'] = ['back_coverfset_press2433 == no deny']
+#------------------- Coil Binding -----------------------
+if paper_thickness <= 0.11811:
+  conflicts['_6mm_coil_binding'] = ["yes"]
+  conflicts['_8mm_coil_binding'] = ['_8mm_coil_binding == yes deny']
+  conflicts['_10mm_coil_binding'] = ['_10mm_coil_binding == yes deny']
+  conflicts['_12mm_coil_binding'] = ['_12mm_coil_binding == yes deny']
+  conflicts['_18mm_coil_binding'] = ['_18mm_coil_binding == yes deny']
+elif paper_thickness <= 0.15748:
+  conflicts['_6mm_coil_binding'] = ['_6mm_coil_binding == yes deny']
+  conflicts['_8mm_coil_binding'] = ["yes"]
+  conflicts['_10mm_coil_binding'] = ['_10mm_coil_binding == yes deny']
+  conflicts['_12mm_coil_binding'] = ['_12mm_coil_binding == yes deny']
+  conflicts['_18mm_coil_binding'] = ['_18mm_coil_binding == yes deny']
+elif paper_thickness <= 0.275591:
+  conflicts['_6mm_coil_binding'] = ['_6mm_coil_binding == yes deny']
+  conflicts['_8mm_coil_binding'] = ['_8mm_coil_binding == yes deny']
+  conflicts['_10mm_coil_binding'] = ["yes"]
+  conflicts['_12mm_coil_binding'] = ['_12mm_coil_binding == yes deny']
+  conflicts['_18mm_coil_binding'] = ['_18mm_coil_binding == yes deny']
+elif paper_thickness <= 0.433071:
+  conflicts['_6mm_coil_binding'] = ['_6mm_coil_binding == yes deny']
+  conflicts['_8mm_coil_binding'] = ['_8mm_coil_binding == yes deny']
+  conflicts['_10mm_coil_binding'] = ['_10mm_coil_binding == yes deny']
+  conflicts['_12mm_coil_binding'] = ["yes"]
+  conflicts['_18mm_coil_binding'] = ['_18mm_coil_binding == yes deny']
+elif paper_thickness <= 0.551181:
+  conflicts['_6mm_coil_binding'] = ['_6mm_coil_binding == yes deny']
+  conflicts['_8mm_coil_binding'] = ['_8mm_coil_binding == yes deny']
+  conflicts['_10mm_coil_binding'] = ['_10mm_coil_binding == yes deny']
+  conflicts['_12mm_coil_binding'] = ['_12mm_coil_binding == yes deny']
+  conflicts['_18mm_coil_binding'] = ["yes"]
+elif paper_thickness > 0.551181:
+  conflicts['_6mm_coil_binding'] = ['_6mm_coil_binding == yes deny']
+  conflicts['_8mm_coil_binding'] = ['_8mm_coil_binding == yes deny']
+  conflicts['_10mm_coil_binding'] = ['_10mm_coil_binding == yes deny']
+  conflicts['_12mm_coil_binding'] = ['_12mm_coil_binding == yes deny']
+  conflicts['_18mm_coil_binding'] = ['_18mm_coil_binding == yes deny']
+  error = "No suitable coil binding found."
+desc = 'conflicts set. Total paper thickness is '+str(paper_thickness)+' inches.'
+save['*conflicts'] = conflicts
