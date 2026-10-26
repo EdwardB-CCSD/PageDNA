@@ -1,0 +1,89 @@
+# Get Paper Caliper
+# lookup('front_cover_paper') lookup('inside_paper') lookup('back_cover_paper')
+#back_cover_caliper_value = env['snap']['paper']['back_cover']['caliper']
+#front_cover_paper_caliper_value = env['snap']['paper']['front_cover_paper']['caliper']
+#inside_paper_caliper_value = env['snap']['paper']['inside_paper']['caliper']
+
+# Get Front Cover Caliper
+#front_caliper = 0.010
+front_caliper = env['snap']['paper']['front_cover_paper']['caliper']
+
+# Get Inside Paper Caliper
+#inside_caliper = 0.004
+inside_caliper = env['snap']['paper']['inside_paper']['caliper']
+
+# Get Back Cover Caliper
+#back_caliper = 0.010
+back_caliper = env['snap']['paper']['back_cover_paper']['caliper']
+
+# How many inside sheets?
+inside_sheets = lookup('inside_sheets')
+
+if inside_sheets == '_50':
+  int_inside_sheets = 50
+
+elif inside_sheets == '_100':
+  int_inside_sheets = 100
+  
+else:
+  int_inside_sheets = 0
+  
+# Calculate total thickness, convert to MM
+
+int_total_thick = (front_caliper + (int_inside_sheets * inside_caliper) + back_caliper) * 25.4
+
+# Coil mm : price
+prices = {
+    6:     0.063,
+    7:     0.074,
+    8:     0.085,
+    9:     0.097,
+    10:    0.103,
+    11:    0.123,
+    12:    0.33,
+    13:    0.34,
+    14:    0.35,
+    15:    0.36,
+    16:    0.38,
+    18:    0.40,
+    20:    0.42,
+    22:    0.44,
+    25:    0.47,
+    28:    0.50
+    }
+
+# Min Sheets : Coil mm
+sizes = {
+    2.0:     6,
+    3.0:     7,
+    4.0:     8,
+    5.0:     9,
+    6.0:     10,
+    7.0:     11,
+    8.0:     12,
+    9.0:     13,
+    10.0:    14,
+    11.0:    15,
+    12.0:    16,
+    14.0:    18,
+    16.0:    20,
+    18.0:    22,
+    21.0:    25,
+    24.0:    28
+    }
+
+book =          int_total_thick
+p =             0
+s =             0.0
+
+for k in sorted(sizes.keys()):
+    if k <= book:
+        s = sizes[k]
+        p = prices[s]
+
+if book > 25.0:
+	error = str(book)+' sheets used. Cannot use coil binding greater than 24mm thick books.'
+else:
+  sub = p*qty
+  price = sub
+  desc = 'Coil binding, '+str(book)+'mm Thickness, '+str(s)+'mm coil at $'+str(p)+' per book. '+str(qty)+' books total. '+str(front_caliper)+','+str(inside_caliper)+','+str(back_caliper)
